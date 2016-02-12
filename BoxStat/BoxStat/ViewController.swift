@@ -12,9 +12,15 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
 
     @IBOutlet var tableView: UITableView!
     
+    var names = ["Bob", "Kelly", "Sara"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+    
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,14 +35,16 @@ class ViewController: UIViewController,UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return self.names.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell{
       
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier")
+        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath:indexPath) as UITableViewCell
         
-        return cell!
+        cell.textLabel?.text = names[indexPath.row]
+        
+        return cell
     }
     
 }
